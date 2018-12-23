@@ -162,7 +162,7 @@ module.exports = function (app) {
     
     })
     
-    .delete(function(req, res){
+    .delete(function(req, res,done){
       var bookid = req.params.id;
       //if successful response will be 'delete successful'
     
