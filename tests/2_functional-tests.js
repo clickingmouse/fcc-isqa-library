@@ -78,7 +78,7 @@ var book_id=''
     suite('GET /api/books => array of books', function(){
       
       test('Test GET /api/books',  function(done){
-        console.log("testing get /api/books")
+        //console.log("testing get /api/books")
         chai.request(server)
         .get('/api/books')
         .send({})
@@ -118,7 +118,7 @@ var book_id=''
         .get('/api/books/'+book_id)
         //.send({_id:book_id})
         .end(function(err,res){
-         console.log(res.body)
+         //console.log(res.body)
          assert.equal(res.status,200)
          assert.property(res.body,'_id')
          assert.property(res.body,'title')
@@ -138,9 +138,16 @@ var book_id=''
       
       test('Test POST /api/books/[id] with comment', function(done){
         chai.request(server)
-        .post('/api/books/')
+        .post('/api/books/'+book_id)
+        .send({comment:'test_comment'})
         .end(function(err,res){
-        assert.fail() 
+          assert.equal(res.status,200)
+          assert.property(res.body,'_id')
+          assert.property(res.body,'title')
+          assert.property(res.body, 'comments')
+          assert.include(res.body.comments, 'test_comment')
+
+        //assert.fail() 
         
         done();
         })
